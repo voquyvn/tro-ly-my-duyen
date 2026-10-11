@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><base target="_top"><title>Akachan</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex"><meta name="referrer" content="no-referrer">
+<style>
+*{box-sizing:border-box}body{margin:0;font:16px/1.45 -apple-system,Roboto,Arial,sans-serif;background:#F4F7F8;color:#1D3557}
+header{background:#1D3557;color:#fff;padding:14px 16px;font-weight:700;font-size:18px}header small{display:block;font-weight:400;opacity:.8;font-size:13px}
+nav{display:flex;background:#fff;border-bottom:1px solid #dde3e6;position:sticky;top:0}nav button{flex:1;border:0;background:none;padding:13px 4px;font-size:15px;color:#5b6b7a;border-bottom:3px solid transparent}
+nav button.chon{color:#1D3557;font-weight:700;border-bottom-color:#2A9D8F}
+main{padding:16px;max-width:560px;margin:0 auto}section{display:none}section.hien{display:block}
+.the{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+h2{font-size:16px;margin:0 0 10px}label{display:block;font-size:14px;color:#5b6b7a;margin:12px 0 4px}
+input,select,textarea{width:100%;font-size:17px;padding:11px;border:1px solid #c9d3d9;border-radius:9px;background:#fff;color:#1D3557}textarea{min-height:96px}
+button.to{width:100%;border:0;border-radius:11px;padding:16px;font-size:18px;font-weight:700;color:#fff;background:#2A9D8F;margin-top:14px}
+button.to.cam{background:#E76F51}button.to:disabled{opacity:.5}.hai{display:flex;gap:10px}.hai button{flex:1}.hai>div{min-width:0}.hai input{min-width:0}
+.dong{padding:10px 0;border-top:1px solid #edf1f3;font-size:15px}.dong:first-child{border-top:0}.mo{color:#5b6b7a;font-size:13px}
+.nhan{display:inline-block;font-size:12px;padding:2px 8px;border-radius:10px;background:#FFF3CD;color:#7a5b00}.nhan.ok{background:#D8F3EC;color:#136b5f}.nhan.hoi{background:#FDE2DC;color:#9c3a22}
+#bao{position:fixed;left:12px;right:12px;bottom:14px;background:#1D3557;color:#fff;padding:13px 15px;border-radius:11px;display:none;font-size:15px;z-index:9}#bao.loi{background:#B23A26}
+.nho{display:flex;gap:8px;margin-top:8px}.nho button{flex:1;border:0;border-radius:9px;padding:10px;font-size:15px;font-weight:700;color:#fff;background:#2A9D8F}.nho button.h{background:#E76F51}
+</style></head><body>
+<header>Akachan<small>Chào <span id="ten"></span> · <span id="homnay"></span></small></header>
+<nav><button data-t="cc" class="chon">Chấm công</button><button data-t="ct">Chi tiêu</button><button data-t="hd">Hỏi đáp</button><button data-t="dy" id="nutdy" style="display:none">Duyệt</button></nav>
+<main>
+<section id="cc" class="hien">
+  <div class="the"><h2>Hôm nay</h2><div id="cchn" class="mo">Đang tải…</div>
+    <div class="hai"><button class="to" id="bden">Đến</button><button class="to cam" id="bve">Về</button></div>
+    <p class="mo">Khi bấm, điện thoại hỏi quyền vị trí thì chọn Cho phép.</p></div>
+  <div class="the"><h2>Báo nghỉ</h2>
+    <label>Loại nghỉ</label><select id="nloai"><option>Nghỉ phép</option><option>Nghỉ ốm</option><option>Nghỉ thai sản</option><option>Nghỉ khác</option></select>
+    <div class="hai"><div style="flex:1"><label>Từ ngày</label><input type="date" id="ntu"></div><div style="flex:1"><label>Đến hết ngày</label><input type="date" id="nden"></div></div>
+    <label>Lý do / ghi chú</label><input id="nly" placeholder="Ví dụ: việc gia đình; có giấy khám">
+    <button class="to" id="bnghi">Gửi báo nghỉ</button></div>
+  <div class="the"><h2>Báo nghỉ của tôi</h2><div id="dsnghi" class="mo">Đang tải…</div></div>
+</section>
+<section id="ct">
+  <div class="the"><h2>Ghi một khoản chi</h2>
+    <label>Ngày chi</label><input type="date" id="cngay">
+    <label>Chi cho</label><select id="cmang"><option>Xe giao hàng</option><option>Kho</option><option>Văn phòng</option></select>
+    <div id="oxe"><label>Xe / thiết bị</label><select id="cxe"><option>Xe máy Nam Anh</option><option>Xe máy Tú</option><option>Xe thuê ngoài</option><option>Máy phát điện</option><option>Khác</option></select></div>
+    <label>Nhóm chi</label><select id="cnhom"></select>
+    <label>Số tiền (đồng)</label><input inputmode="numeric" id="ctien" placeholder="150000">
+    <div id="okm"><label>Số km trên đồng hồ (máy phát: số giờ chạy)</label><input inputmode="numeric" id="ckm"></div>
+    <label>Ghi chú</label><input id="cghi" placeholder="Mua gì, ở đâu">
+    <button class="to" id="bchi">Ghi khoản chi</button></div>
+  <div class="the"><h2>Khoản chi gần đây của tôi</h2><div id="dschi" class="mo">Đang tải…</div></div>
+</section>
+<section id="hd">
+  <div class="the"><h2>Hỏi nhanh Trợ Lý Mỹ Duyên</h2><textarea id="hcau" placeholder="Ví dụ: còn bao nhiêu ngày phép; tồn mã hàng …; đơn của khách … giao chưa"></textarea>
+    <button class="to" id="bhoi">Gửi câu hỏi</button></div>
+  <div class="the"><h2>Câu hỏi của tôi</h2><div id="dshoi" class="mo">Đang tải…</div></div>
+</section>
+<section id="dy"><div class="the"><h2>Chờ duyệt</h2><div id="dscho" class="mo">Đang tải…</div></div></section>
+</main><div id="bao"></div>
+<script>
+var K="__K__",CO_DUYET="__DUYET__",API="https://script.google.com/macros/s/AKfycbxUeAPyoajqb-AY6rkfBFdsJpVdMcJLxlQd47wydC4siWorTNakjrjVEgRB1vy-OEeCuw/exec",GS=!!(window.google&&google.script&&google.script.run);
+// Trang đặt ngoài Google (không có google.script): khoá lấy từ địa chỉ ?k=…, gọi máy chủ qua cổng doPost, không kèm cookie
+if(!GS){K=decodeURIComponent((location.search.match(/[?&]k=([^&]+)/)||[])[1]||"");CO_DUYET=""}
+var NHOM={"Xe giao hàng":["Nhiên liệu","Phí bến bãi","Sửa chữa, bảo dưỡng","Khác"],"Kho":["Vật tư đóng hàng","Nước uống","Cước gửi, nhận hàng","Vệ sinh, diệt chuột mối","Điện, sửa chữa","Khác"],"Văn phòng":["Mực in, văn phòng phẩm","Nước uống","Cước gửi, nhận hàng","Điện, sửa chữa","Khác"]};
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function bao(t,loi){var b=$("bao");b.textContent=t;b.className=loi?"loi":"";b.style.display="block";clearTimeout(bao.t);bao.t=setTimeout(function(){b.style.display="none"},loi?6000:3500)}
+function tien(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,".")}
+function nhan(d){return '<span class="nhan'+(d==="Duyệt"?" ok":d==="Hỏi lại"?" hoi":"")+'">'+esc(d)+"</span>"}
+function goi(ham,a,xong,nut){if(nut)nut.disabled=true;
+  var ok=function(k){if(nut)nut.disabled=false;if(k&&k.loi)return bao(k.loi,1);if(k&&k.ok)bao(k.ok);if(xong)xong(k)},hong=function(e){if(nut)nut.disabled=false;bao("Chưa gửi được, thử lại. ("+e.message+")",1)};
+  if(GS){var r=google.script.run.withSuccessHandler(ok).withFailureHandler(hong);r[ham].apply(r,a)}
+  else fetch(API,{method:"POST",credentials:"omit",redirect:"follow",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({ham:ham,a:a})}).then(function(r){return r.json()}).then(ok,hong)}
+function tai(){goi("trangThai",[K],function(s){
+  if(!GS){$("ten").textContent=s.ten||"";$("nutdy").style.display=s.co_duyet?"":"none"}
+  $("cchn").innerHTML=s.hom_nay.length?s.hom_nay.map(function(x){return '<div class="dong"><b>'+esc(x.loai)+"</b> "+esc(x.gio)+' <span class="mo">'+esc(x.tt)+"</span> "+(x.duyet?nhan(x.duyet):"")+"</div>"}).join(""):"Chưa bấm giờ hôm nay.";
+  $("dsnghi").innerHTML=s.nghi.length?s.nghi.map(function(x){return '<div class="dong">'+esc(x.loai)+" · "+esc(x.ky)+" · "+esc(x.so)+" ngày "+nhan(x.duyet)+"</div>"}).join(""):"Chưa có lần báo nghỉ nào.";
+  $("dschi").innerHTML=s.chi.length?s.chi.map(function(x){return '<div class="dong">'+esc(x.ngay)+" · "+esc(x.nhom)+(x.xe?" · "+esc(x.xe):"")+" · <b>"+tien(x.tien)+"</b> "+nhan(x.duyet)+"</div>"}).join(""):"Chưa có khoản nào.";
+  $("dshoi").innerHTML=s.hoi.length?s.hoi.map(function(x){return '<div class="dong"><span class="mo">'+esc(x.luc)+"</span><br>"+esc(x.q)+"<br>"+(x.a?"<b>Trả lời:</b> "+esc(x.a):'<span class="nhan">Chờ trả lời</span>')+"</div>"}).join(""):"Chưa có câu hỏi nào.";
+  $("dscho").innerHTML=s.cho.length?s.cho.map(function(x){return '<div class="dong"><b>'+esc(x.ai)+"</b>"+(x.tien?" · <b>"+tien(x.tien)+"</b>":"")+'<br><span class="mo">'+esc(x.mo_ta)+'</span><div class="nho"><button data-l="'+x.loai+'" data-d="'+x.dong+'" data-k="Duyệt">Duyệt</button><button class="h" data-l="'+x.loai+'" data-d="'+x.dong+'" data-k="Hỏi lại">Hỏi lại</button></div></div>'}).join(""):"Không có dòng nào chờ duyệt.";
+  $("nutdy").textContent="Duyệt"+(s.cho.length?" ("+s.cho.length+")":"");
+})}
+function cham(loai,nut){nut.disabled=true;var gui=function(vt){goi("chamCong",[K,loai,vt],tai,nut)};
+  if(!navigator.geolocation)return gui(null);
+  navigator.geolocation.getCurrentPosition(function(p){gui({lat:p.coords.latitude,lng:p.coords.longitude,acc:p.coords.accuracy})},function(){gui(null)},{enableHighAccuracy:true,timeout:12000,maximumAge:0})}
+function doiMang(){var m=$("cmang").value;$("cnhom").innerHTML=NHOM[m].map(function(n){return"<option>"+n+"</option>"}).join("");var xe=m==="Xe giao hàng";$("oxe").style.display=xe?"":"none";$("okm").style.display=xe?"":"none"}
+document.querySelector("nav").addEventListener("click",function(e){var t=e.target.getAttribute("data-t");if(!t)return;[].forEach.call(document.querySelectorAll("nav button"),function(b){b.className=b===e.target?"chon":""});[].forEach.call(document.querySelectorAll("section"),function(s){s.className=s.id===t?"hien":""})});
+$("bden").onclick=function(){cham("den",this)};$("bve").onclick=function(){cham("ve",this)};
+$("cmang").onchange=doiMang;
+$("bchi").onclick=function(){var xe=$("cmang").value==="Xe giao hàng";goi("chiTieu",[K,{ngay:$("cngay").value,mang:$("cmang").value,xe:xe?$("cxe").value:"",nhom:$("cnhom").value,tien:$("ctien").value,km:xe?$("ckm").value:"",ghi:$("cghi").value}],function(){$("ctien").value="";$("ckm").value="";$("cghi").value="";tai()},this)};
+$("bnghi").onclick=function(){goi("baoNghi",[K,{loai:$("nloai").value,tu:$("ntu").value,den:$("nden").value,ly_do:$("nly").value}],function(){$("nly").value="";tai()},this)};
+$("bhoi").onclick=function(){goi("hoi",[K,$("hcau").value],function(){$("hcau").value="";tai()},this)};
+$("dscho").addEventListener("click",function(e){var b=e.target;if(!b.getAttribute("data-k"))return;goi("duyet",[K,b.getAttribute("data-l"),Number(b.getAttribute("data-d")),b.getAttribute("data-k")],tai,b)});
+var d=new Date(),p=function(n){return(n<10?"0":"")+n};$("cngay").value=d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate());$("ntu").value=$("cngay").value;$("nden").value=$("cngay").value;$("homnay").textContent=p(d.getDate())+"/"+p(d.getMonth()+1);
+$("ten").textContent="__TEN__";if(CO_DUYET)$("nutdy").style.display="";doiMang();tai();
+</script></body></html>

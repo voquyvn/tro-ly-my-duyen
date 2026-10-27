@@ -32,6 +32,7 @@ button.to.cam{background:#E76F51}button.to:disabled{opacity:.5}.hai{display:flex
   <div class="the"><h2>Báo nghỉ của tôi</h2><div id="dsnghi" class="mo">Đang tải…</div></div>
 </section>
 <section id="ct">
+  <div class="the" id="oso" style="display:none"><a id="lso" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;border-radius:11px;padding:16px;font-size:18px;font-weight:700;color:#fff;background:#1D3557">Xem sổ chi phí tháng này</a><div class="mo" style="margin-top:8px">Cả tuần, cả tháng: tổng theo mảng, từng khoản, khoản Trợ Lý Mỹ Duyên đang hỏi lại. Xem lúc nào tiện.</div></div>
   <div class="the"><h2>Ghi một khoản chi</h2>
     <label>Ngày chi</label><input type="date" id="cngay">
     <label>Chi cho</label><select id="cmang"><option>Xe giao hàng</option><option>Kho</option><option>Văn phòng</option></select>
@@ -66,6 +67,7 @@ function goi(ham,a,xong,nut){if(nut)nut.disabled=true;
   else fetch(API,{method:"POST",credentials:"omit",redirect:"follow",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({ham:ham,a:a})}).then(function(r){return r.json()}).then(ok,hong)}
 function tai(){goi("trangThai",[K],function(s){
   if(!GS){$("ten").textContent=s.ten||"";$("nutdy").style.display=s.co_duyet?"":"none"}
+  if(s.so){$("oso").style.display="";$("lso").href=s.so}
   $("cchn").innerHTML=s.hom_nay.length?s.hom_nay.map(function(x){return '<div class="dong"><b>'+esc(x.loai)+"</b> "+esc(x.gio)+' <span class="mo">'+esc(x.tt)+"</span> "+(x.duyet?nhan(x.duyet):"")+"</div>"}).join(""):"Chưa bấm giờ hôm nay.";
   $("dsnghi").innerHTML=s.nghi.length?s.nghi.map(function(x){return '<div class="dong">'+esc(x.loai)+" · "+esc(x.ky)+" · "+esc(x.so)+" ngày "+nhan(x.duyet)+"</div>"}).join(""):"Chưa có lần báo nghỉ nào.";
   $("dschi").innerHTML=s.chi.length?s.chi.map(function(x){return '<div class="dong">'+esc(x.ngay)+" · "+esc(x.nhom)+(x.xe?" · "+esc(x.xe):"")+" · <b>"+tien(x.tien)+"</b> "+nhan(x.duyet)+"</div>"}).join(""):"Chưa có khoản nào.";
